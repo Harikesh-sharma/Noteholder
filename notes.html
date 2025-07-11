@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NoteTaker</title>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<link rel="stylesheet" href="style.css">
+<!-- <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg width='22' height='22' viewBox='0 -4 22 22' xml:space='preserve' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath style='display:inline;fill:url(%23a);stroke-width:.0717626' d='M0 7.403c.755-.657 1.627-1.23 2.431-1.83l4.1-3.061C7.414 1.866 8.584.84 9.506.366a3.17 3.17 0 0 1 1.662-.359q.18.012.358.044.177.032.35.083.173.052.34.122.166.07.324.158c.475.264.911.617 1.348.94l1.98 1.464 3.376 2.499c.78.571 1.57 1.13 2.334 1.724l-7.345 7.406-1.775 1.816c-.272.282-.563.66-.878.89-.74-.045-1.482-.046-2.223-.054q-3.202-3.23-6.32-6.54L1.054 8.484C.705 8.123.338 7.773 0 7.403z'/%3E%3Cdefs%3E%3ClinearGradient id='a' gradientUnits='userSpaceOnUse' x1='481.615' y1='426.516' x2='528.272' y2='194.363' gradientTransform='matrix(.07176 0 0 .07176 -25.74 -13.72)'%3E%3Cstop offset='0' stop-color='%23CF5A2A' style='stop-color:%239b1fac;stop-opacity:1'/%3E%3Cstop offset='1' stop-color='%23EA9C33' style='stop-color:%23ff3b72;stop-opacity:1'/%3E%3C/linearGradient%3E%3C/defs%3E%3C/svg%3E"> -->
+</head>
+<body>
+<!-- <script>let currentTheme = localStorage.getItem('tema');if (currentTheme){document.body.className = currentTheme;}</script> -->
+<div class="container">
+<div class="sidebar">
+<div class="resizer"></div>
+<!-- <button id="toggle-sidebar-button"><span class="panel"><svg fill="#b1cee7" viewBox="0 0 32 32" id="icon" xmlns="http://www.w3.org/2000/svg"><path d="M28,4H4A2,2,0,0,0,2,6V26a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V6A2,2,0,0,0,28,4ZM4,6H20V26H4ZM28,26H22V6h6Z"/><rect id="_Transparent_Rectangle_" data-name="&lt;Transparent Rectangle&gt;" fill="none"/></svg></span></button>  -->
+<div class="logo"></div>
+<input type="text" id="note-search" style="margin-bottom: 10px;"/>
+<button id="add-category-button"></button>
+<div class="settool"><button id="import">Yükle</button><button id="export">Kaydet</button>
+<button id="sync">Sync</button>
+<button id="languege">Dil</button>
+<button id="tema">Tema</button>
+</div>
+<ul id="category-list" class="sortable1"></ul>
+</div>
+<div class="notebar" style="visibility: hidden;display: none;">
+<div class="resizer"></div>
+<div id="arrow" class="geriNotebar">Geri</div>
+<input type="text" id="note-content-search" style="margin-bottom: 10px;"/>
+<div class="not_gorev">
+<button id="add-note-button"></button>
+<button id="add-task-button"></button>
+</div>
+<ul id="note-list" class="sortable2"></ul>
+</div>
+<div class="note-content">
+<div class="note-content-ic" style="display: none;">
+<div class="ust_content">
+<div id="arrow" class="geriContent">Geri</div>
+<input type="text" id="note-title">
+</div>
+<div class="toolbar_hiza">
+<div class="toolbar">
+<button class="h1-button" onclick="formatDoc('formatBlock', 'h1')">H1</button>
+<button class="h2-button" onclick="formatDoc('formatBlock', 'h2')">H2</button>
+<button class="bold-button" onclick="formatDoc('bold')">B</button>
+<button class="italic-button" onclick="formatDoc('italic')">I</button>
+<div class="color-picker-container">
+<button id="color-button" onclick="openColorPicker()">Renk</button>
+<input type="color" id="color-picker">
+</div>
+<button class="list-ul-button" onclick="formatDoc('insertUnorderedList')">UL</button>
+<button class="list-ol-button" onclick="formatDoc('insertOrderedList')">OL</button>
+<button class="strike-button" onclick="formatDoc('strikeThrough')">Çizili</button>
+<button class="left-button" onclick="formatDoc('justifyLeft')">Sola</button>
+<button class="center-button" onclick="formatDoc('justifyCenter')">Ortala</button>
+<button class="right-button" onclick="formatDoc('justifyRight')">Sağa</button>
+<button class="erase-button" onclick="formatDoc('removeFormat')">Biçim</button>
+<button class="horizontalrule-button" onclick="formatDoc('insertHorizontalRule')">Çizgi</button>
+<button class="link-button" onclick="createLink()">Link</button>
+<button class="unlink-button" onclick="formatDoc('unlink')">unlink</button>
+<button class="html-button" onclick="htmlEkle()">HTML</button>
+<button class="table-button" onclick="tabloEkle()">Tablo</button>
+<button class="select-button" onclick="selectAllText()">Seç</button>
+<button class="kucult-button" id="kucult">Küçült</button>
+<button class="buyut-button" id="buyut">Büyüt</button>
+<button class="undo-button" onclick="formatDoc('undo')">Geri</button>
+<button class="redo-button" onclick="formatDoc('redo')">İleri</button>
+<div id="omod_toggle">Devil</div>
+</div>
+</div>
+<div id="editor_div"><div id="note-editor" class="rich-text-editor" contenteditable="true"></div></div>
+<div id="save_date_hiza">
+<p id="save-status"></p>
+<div id="note-created-date"></div>
+<div id="save-note-button"></div>
+<div id="delete-note-button"></div>
+</div>
+</div>
+<div class="arkaplan logo" style="display: none;"></div>
+</div>
+</div>
+</body>
+<script href="script.js"></script>
+</html>
